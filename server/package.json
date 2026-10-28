@@ -1,0 +1,20 @@
+{
+  "name": "vishal-portfolio-server",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": { "node": ">=20.12" },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "db:init": "node scripts/init-db.js",
+    "create-admin": "node scripts/create-admin.js",
+    "hash-password": "node scripts/hash-password.js",
+    "gsc:sync": "node scripts/gsc-sync.js",
+    "test": "node --test --no-warnings \"test/*.test.js\""
+  },
+  "dependencies": {
+    "mysql2": "^3.11.4",
+    "nodemailer": "^6.9.16"
+  }
+}
