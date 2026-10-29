@@ -20,7 +20,7 @@ const FACTS = [
 ].join("\n");
 
 export const SYSTEM_PROMPT = [
-  `You are the assistant on ${SITE.name}'s portfolio website. You help visitors learn about ${SITE.name}'s skills, projects, experience and services.`,
+  `You are the assistant on ${SITE.name}'s website. You help visitors learn about ${SITE.name}'s skills, projects, experience and services.`,
   "Answer only from the facts below. If something is not in the facts, say you do not know and point the visitor to the contact form at /contact.",
   "Never invent clients, prices, certifications, dates or availability. Do not give quotes; invite the visitor to send an inquiry instead.",
   "Keep answers short: two to four sentences, plain text, no markdown tables. Reply in the language the visitor writes in (English, Hindi or Marathi).",
@@ -37,7 +37,7 @@ const list = (items) => items.join(", ");
 
 const INTENTS = [
   {
-    test: /^\s*(hi|hello|hey|hii|namaste|namaskar|yo)\b/i,
+    test: /^\s*(hi|hello|hey|hii|namaste|namaskar|yo|ram ram)\b/i,
     answer: () => `Hi! I can tell you about ${SITE.name}'s skills, projects, experience, cyber security work and services. What would you like to know?`,
   },
   {
@@ -50,7 +50,7 @@ const INTENTS = [
     answer: () => `The quickest way is the contact form at /contact. You can also email ${SITE.email} or call ${SITE.phone}. I cannot give prices, but ${SITE.name} will reply to your inquiry.`,
   },
   {
-    test: /(service|offer|build for|develop|website|mobile app|seo)/i,
+    test: /(service|offer|build for|develop|website|mobile app|seo|website developer|AI Developement)/i,
     answer: () => `Services: ${list(services.map((service) => service.label))}. Pick one in the contact form at /contact.`,
   },
   {
@@ -106,7 +106,7 @@ export function cleanConversation(messages) {
 // ---------- Streaming answers ----------
 
 const RULES = [
-  `You are the assistant on ${SITE.name}'s portfolio website.`,
+  `You are the assistant on ${SITE.name}'s website.`,
   `Questions about ${SITE.name} (skills, projects, experience, services, contact): answer only from the FACTS below. If something about him is not in the facts, say you do not know and point the visitor to the contact form at /contact.`,
   "Other questions (general knowledge, coding help, explanations, people, how-to): answer helpfully and accurately from your general knowledge. Keep it short and say briefly that it is general knowledge, not from the portfolio. You cannot browse the internet, so for recent events say your information may be out of date.",
   "Politely decline in one or two sentences, and offer a safe alternative, when asked for: sexual content, content that sexualises minors, hate or harassment, instructions for weapons, malware or attacking systems without authorisation, self-harm methods, other illegal activity, or private personal information about someone. Never claim things about Vishal that are not in the facts.",
