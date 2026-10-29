@@ -620,7 +620,7 @@ body::before {
 .contact-side h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
 .side-list { display: grid; gap: 18px; }
 .side-list li { display: flex; align-items: center; gap: 16px; min-width: 0; }
-.side-list span { display: block; font-size: 0.82rem; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; }
+.side-list li > div > span { display: block; font-size: 0.82rem; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; }
 .side-list a, .side-list strong { overflow-wrap: anywhere; font-weight: 600; }
 .side-list a:hover { color: var(--accent-text); }
 .side-note { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; }
