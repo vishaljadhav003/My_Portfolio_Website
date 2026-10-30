@@ -123,21 +123,53 @@ write("/admin", render("/admin", { title: "Admin | Vishal Jadhav", description: 
 // Unknown URLs fall back to the app, which shows its own 404 page.
 writeFileSync(join(dist, "404.html"), template);
 
+
 const urls = Object.keys(seo).map((path) => {
-  const priority = path === "/" ? "1.0" : path === "/projects" || path === "/contact" ? "0.9" : "0.7";
+  const priority =
+    path === "/"
+      ? "1.0"
+      : path === "/projects" || path === "/contact"
+        ? "0.9"
+        : "0.7";
+
   const image =
     path === "/" || path === "/about"
-      ? `<image:image><image:loc>${site}/vishal-jadhav-pune.jpg</image:loc><image:title>Vishal Jadhav</image:title><image:caption>Vishal Jadhav, software engineer in Pune, India</image:caption></image:image>`
+      ? `<image:image>
+          <image:loc>${site}/vishal-jadhav-pune.jpg</image:loc>
+          <image:title>Vishal Jadhav</image:title>
+          <image:caption>Vishal Jadhav, software engineer in Pune, India</image:caption>
+        </image:image>`
       : "";
-  return `  <url><loc>${site}${path === "/" ? "/" : path}</loc><changefreq>monthly</changefreq><priority>${priority}</priority>${image}</url>`;
-});
-const robots = `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n${site ? `\nSitemap: ${site}/sitemap.xml\n` : ""}`;
-writeFileSync(join(dist, "robots.txt"), robots);
-if (site) {
-  writeFileSync(
-    join(dist, "sitemap.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls.join("\n")}\n</urlset>\n`
-  );
-}
 
+  return `  <url>
+    <loc>${site}${path === "/" ? "/" : path}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>${priority}</priority>
+    ${image}
+  </url>`;
+});
+
+const robots = [
+  "User-agent: *",
+  "Allow: /",
+  "Disallow: /admin",
+  "Disallow: /api/",
+  ...(site ? ["", `Sitemap: ${site}/sitemap.xml`] : []),
+  "",
+].join("\n");
+
+writeFileSync(join(dist, "robots.txt"), robots);
+
+if (site) {
+  const sitemap = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+    '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+    ...urls,
+    "</urlset>",
+    "",
+  ].join("\n");
+
+  writeFileSync(join(dist, "sitemap.xml"), sitemap, "utf8");
+}
 console.log(`postbuild: wrote ${Object.keys(seo).length} route pages${site ? " with canonical URLs and a sitemap" : " (set SITE_URL for canonical URLs and a sitemap)"}`);
