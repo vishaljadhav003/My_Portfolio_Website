@@ -3,7 +3,7 @@
 Frontend: React + Vite, Framer Motion, GSAP, Lenis, raw WebGL, Spline.
 Backend: Node.js (Express-free, one small server), MySQL, Nodemailer. Folder `server/`.
 
-Pages: `/`, `/about`, `/projects`, `/faq`, `/contact`, `/admin` (private, not indexed).
+Pages: `/`, `/about`, `/projects`, `/faq`, `/contact` (private, not indexed).
 
 ## 1. Install (run these in the project folder, the one that contains `package.json`, not inside `src`)
 
